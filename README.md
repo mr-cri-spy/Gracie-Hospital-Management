@@ -1,4 +1,4 @@
-# 🏥 Gracie Hospital Management System
+#  Gracie Hospital Management System
 **Location:** Hebbal, Mysore, Karnataka - 570017  
 **Payment:** Google Pay / UPI (`kirancrispy@okicici`)  
 **Currency:** ₹ Indian Rupees (INR)  
@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 What Was Changed (India Localization)
+##  What Was Changed (India Localization)
 
 | Area | Before | After |
 |------|--------|-------|
@@ -25,7 +25,7 @@
 
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### 1. Install Python & create virtual environment
 ```bash
@@ -70,14 +70,14 @@ Visit: http://127.0.0.1:8000
 
 ---
 
-## 💳 How Google Pay / UPI Payment Works
+##  How Google Pay / UPI Payment Works
 
 1. Patient books appointment → fills details → clicks Continue
 2. **Checkout page** shows:
    - Bill summary in ₹ INR (with 5% GST)
    - UPI QR code (scan with any UPI app)
    - "Open Google Pay" deep link button (on Android)
-   - UPI ID: `kirancrispy@okicici`
+   - UPI ID: `krancripy@okicici`
 3. Patient pays via Google Pay / PhonePe / Paytm / BHIM
 4. Patient enters the **UTR (Transaction Reference Number)** from their UPI app
 5. System confirms and marks appointment as **Scheduled**
@@ -85,7 +85,7 @@ Visit: http://127.0.0.1:8000
 
 ---
 
-## 🏥 Sample Services & Prices (₹ INR)
+##  Sample Services & Prices (₹ INR)
 
 | Service | Consultation Fee |
 |---------|-----------------|
@@ -98,7 +98,7 @@ Visit: http://127.0.0.1:8000
 
 ---
 
-## 👨‍⚕️ Adding Doctors (via Admin Panel)
+##  Adding Doctors (via Admin Panel)
 
 1. Go to http://127.0.0.1:8000/admin/
 2. Create a User account with type "Doctor"
@@ -116,7 +116,7 @@ Visit: http://127.0.0.1:8000
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Gracie-Hospital-Management/
@@ -138,7 +138,7 @@ Gracie-Hospital-Management/
 
 ---
 
-## ⚠️ Important Notes
+##  Important Notes
 
 - **UPI Payments are manual confirmation** — patient enters UTR after paying.
   For auto-verification, you can later integrate Razorpay (Indian gateway) which supports UPI.
