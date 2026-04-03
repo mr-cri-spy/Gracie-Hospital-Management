@@ -1,0 +1,37 @@
+<div class="col-lg-3 col-md-4 col-12 mb-4">
+    <nav class="navbar navbar-expand-md shadow-sm sidenav rounded-3">
+        <a class="d-xl-none d-lg-none d-md-none text-dark fw-bold p-3" href="#">Menu</a>
+        <button class="navbar-toggler m-3" type="button" data-bs-toggle="collapse" data-bs-target="#docsidenav">
+            <span class="bi bi-grid"></span>
+        </button>
+        <div class="collapse navbar-collapse p-3" id="docsidenav">
+            <div class="navbar-nav flex-column w-100">
+                <div class="d-flex align-items-center mb-3 gap-2">
+                    {% if doctor.image %}
+                    <img src="{{ doctor.image.url }}" alt="avatar"
+                         class="rounded-circle" style="width:60px;height:60px;object-fit:cover;" />
+                    {% else %}
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                         alt="avatar" class="rounded-circle" style="width:60px;height:60px;object-fit:cover;" />
+                    {% endif %}
+                    <div>
+                        <h6 class="mb-0 fw-bold">Dr. {{ request.user.doctor.full_name }}</h6>
+                        <p class="mb-0 small text-muted">{{ request.user.email }}</p>
+                    </div>
+                </div>
+                <hr class="my-2" />
+                <ul class="list-unstyled mb-3">
+                    <li><a class="nav-link" href="{% url 'doctor:dashboard' %}"><i class="bi bi-grid-fill me-2"></i>Dashboard</a></li>
+                    <li><a class="nav-link" href="{% url 'doctor:appointments' %}"><i class="fas fa-calendar-check me-2"></i>Appointments</a></li>
+                    <li><a class="nav-link" href="{% url 'doctor:payments' %}"><i class="fas fa-rupee-sign me-2"></i>Payments (₹)</a></li>
+                    <li><a class="nav-link" href="{% url 'doctor:notifications' %}"><i class="fas fa-bell me-2"></i>Notifications</a></li>
+                </ul>
+                <hr class="my-2" />
+                <ul class="list-unstyled mb-0">
+                    <li><a class="nav-link" href="{% url 'doctor:profile' %}"><i class="fas fa-edit me-2"></i>Edit Profile</a></li>
+                    <li><a class="nav-link text-danger" href="{% url 'userauths:sign-out' %}"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

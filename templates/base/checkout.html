@@ -1,0 +1,162 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h3 class="fw-bold mb-1"><i class="fas fa-file-invoice me-2 text-success"></i>Booking Summary</h3>
+            <p class="text-muted">Gracie Hospital Management — Hebbal, Mysore</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left: Patient & Doctor Info -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white fw-bold">
+                    <i class="fas fa-user me-2"></i>Patient Details
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label text-muted small">Full Name</label>
+                            <input type="text" value="{{billing.patient.full_name}}" readonly class="form-control bg-light" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Email</label>
+                            <input type="text" value="{{billing.patient.email}}" readonly class="form-control bg-light" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Mobile</label>
+                            <input type="text" value="{{billing.patient.mobile}}" readonly class="form-control bg-light" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Gender</label>
+                            <input type="text" value="{{billing.patient.gender}}" readonly class="form-control bg-light" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Date of Birth</label>
+                            <input type="text" value="{{billing.patient.dob}}" readonly class="form-control bg-light" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label text-muted small">Address</label>
+                            <input type="text" value="{{billing.patient.address}}" readonly class="form-control bg-light" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white fw-bold">
+                    <i class="fas fa-user-md me-2"></i>Consulting Doctor
+                </div>
+                <div class="card-body d-flex gap-3">
+                    <img src="{{billing.appointment.doctor.image.url}}"
+                         style="width:90px;height:90px;object-fit:cover;border-radius:10px;" />
+                    <div>
+                        <h5 class="fw-bold mb-1">Dr. {{billing.appointment.doctor.full_name}}</h5>
+                        <p class="text-muted small mb-1">{{billing.appointment.doctor.specialization}}</p>
+                        <p class="text-muted small mb-1">{{billing.appointment.doctor.qualifications}}</p>
+                        <p class="text-muted small mb-0">
+                            <i class="fas fa-map-marker-alt me-1 text-success"></i>Gracie Hospital, Hebbal, Mysore
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Bill + UPI Payment -->
+        <div class="col-lg-6">
+            <!-- Bill Summary -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white fw-bold">
+                    <i class="fas fa-receipt me-2"></i>Bill Summary (₹ INR)
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                        <span class="text-muted">Service</span>
+                        <span class="fw-semibold">{{billing.appointment.service.name}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                        <span class="text-muted">Consultation Fee</span>
+                        <span class="fw-semibold">₹{{billing.sub_total}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                        <span class="text-muted">GST (5%)</span>
+                        <span class="fw-semibold">₹{{billing.tax}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <span class="fw-bold fs-5">Total Payable</span>
+                        <span class="fw-bold fs-5 text-success">₹{{billing.total}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Pay / UPI Payment -->
+            <div class="card shadow-sm border-success">
+                <div class="card-header text-white fw-bold d-flex align-items-center gap-2"
+                     style="background:#1a73e8;">
+                    <i class="fab fa-google fs-5"></i>
+                    Pay via Google Pay / UPI
+                </div>
+                <div class="card-body">
+                    <!-- Step 1: QR / GPay button -->
+                    <div class="text-center mb-3">
+                        <p class="fw-semibold mb-1">Scan QR or Click to Open Google Pay</p>
+                        <p class="text-muted small mb-3">Pay <strong>₹{{billing.total}}</strong> to Gracie Hospital</p>
+
+                        <!-- UPI QR Code (generated via Google Chart API) -->
+                        <img src="https://chart.googleapis.com/chart?chs=220x220&cht=qr&chl={{upi_url|urlencode}}&choe=UTF-8"
+                             alt="UPI QR Code" class="img-fluid mb-3 border rounded p-2"
+                             style="max-width:220px;" />
+
+                        <p class="text-muted small mb-2">
+                            UPI ID: <strong class="text-success">{{upi_id}}</strong>
+                        </p>
+
+                        <!-- Google Pay deep link button (works on Android) -->
+                        <a href="{{gpay_url}}" class="btn btn-lg w-100 text-white fw-bold mb-2"
+                           style="background:#1a73e8;">
+                            <i class="fab fa-google me-2"></i>Open Google Pay
+                        </a>
+                        <p class="text-muted" style="font-size:0.75rem;">
+                            Or use <strong>PhonePe, Paytm, BHIM</strong> — scan the QR above.
+                            Amount: <strong>₹{{billing.total}}</strong>
+                        </p>
+                    </div>
+
+                    <hr />
+
+                    <!-- Step 2: Enter UTR after paying -->
+                    <p class="fw-semibold text-center mb-2">
+                        <i class="fas fa-check-circle text-success me-1"></i>
+                        After paying, enter the UTR / Transaction ID below
+                    </p>
+                    <form method="POST" action="{% url 'base:upi_payment_confirm' billing.billing_id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label text-muted small">
+                                UPI Transaction / UTR Number
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="utr_number" class="form-control"
+                                   placeholder="e.g. 412345678901 (12-digit UTR)"
+                                   required minlength="8" />
+                            <div class="form-text">
+                                Find it in your UPI app under transaction history after paying.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 fw-bold">
+                            <i class="fas fa-check me-2"></i>Confirm Payment &amp; Book Appointment
+                        </button>
+                    </form>
+
+                    <div class="alert alert-warning mt-3 small mb-0">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Your appointment will be confirmed only after submitting the UTR number.
+                        Please ensure payment is completed before confirming.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

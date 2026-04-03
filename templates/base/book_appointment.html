@@ -1,0 +1,89 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-4">
+    <div class="row align-items-center">
+        <div class="col-12 col-lg-5">
+            <img class="img-fluid"
+                 style="width:100%;height:420px;object-fit:cover;border-radius:12px;"
+                 src="{{doctor.image.url}}" alt="Dr. {{doctor.full_name}}" />
+        </div>
+        <div class="col-12 col-lg-7 p-4">
+            <span class="badge bg-success mb-2">Gracie Hospital, Hebbal, Mysore</span>
+            <h1 class="display-5 fw-bold">Dr. {{doctor.full_name}}</h1>
+            <p class="text-muted fs-5">{{doctor.specialization}} | {{doctor.qualifications}}</p>
+            <p class="fs-5">{{doctor.bio|default:"Experienced specialist at Gracie Hospital, Mysore."}}</p>
+            <p class="text-success fw-semibold">
+                <i class="fas fa-clock me-1"></i>
+                Next Slot: {{doctor.next_available_appointment_date|date:"D, d M Y h:i A"}}
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-4 mb-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white fw-bold">
+            <i class="fas fa-calendar-plus me-2"></i>Book Your Appointment
+        </div>
+        <div class="card-body">
+            <form class="row g-3" method="POST">
+                {% csrf_token %}
+                <div class="col-lg-12">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" value="{{patient.full_name}}" name="full_name"
+                           class="form-control" placeholder="e.g. Ravi Kumar" required />
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" value="{{patient.email}}" name="email"
+                           class="form-control" placeholder="ravi@gmail.com" required />
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Mobile Number (India)</label>
+                    <div class="input-group">
+                        <span class="input-group-text">🇮🇳 +91</span>
+                        <input type="text" value="{{patient.mobile}}" name="mobile"
+                               class="form-control" placeholder="98765 43210" required />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Gender</label>
+                    <select name="gender" class="form-select">
+                        <option {% if patient.gender == "Male" %}selected{% endif %} value="Male">Male</option>
+                        <option {% if patient.gender == "Female" %}selected{% endif %} value="Female">Female</option>
+                        <option {% if patient.gender == "Other" %}selected{% endif %} value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" value="{{patient.dob}}" name="dob" class="form-control" required />
+                </div>
+                <div class="col-lg-12">
+                    <label class="form-label">Address (Mysore / Karnataka)</label>
+                    <input type="text" value="{{patient.address}}" name="address"
+                           class="form-control" placeholder="e.g. Hebbal, Mysore - 570017" required />
+                </div>
+                <div class="col-lg-12">
+                    <label class="form-label">Issues / Chief Complaint</label>
+                    <textarea name="issues" class="form-control" rows="2"
+                              placeholder="Describe your main health complaint..."></textarea>
+                </div>
+                <div class="col-lg-12">
+                    <label class="form-label">Symptoms</label>
+                    <textarea name="symptoms" class="form-control" rows="2"
+                              placeholder="List your symptoms..."></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="alert alert-info small mb-3">
+                        <i class="fas fa-info-circle me-1"></i>
+                        After submitting, you'll be taken to the payment page where you can pay
+                        <strong>₹{{service.cost}}</strong> via <strong>Google Pay / UPI</strong>.
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-100">
+                        Continue to Payment <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

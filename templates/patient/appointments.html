@@ -1,0 +1,33 @@
+{% extends 'partials/base.html' %} {% block content %}
+
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'patient/sidebar.html' %}
+
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-0 mb-4 fw-bold">Appointment</h4>
+                <div class="card mb-4">
+                    <!-- Single item -->
+
+                    {% for a in appointments %}
+                    <div class="shadow border p-3 mb-4 rounded-4">
+                        <a href="{% url 'patient:appointment_detail' a.appointment_id %}">
+                            <p><span class="fw-semibold text-dark">Appointment ID:</span> #{{a.appointment_id}}</p>
+                            <p><span class="fw-semibold text-dark">Service:</span> {{a.service.name}}</p>
+                            <p><span class="fw-semibold text-dark">Doctor:</span> {{a.doctor.full_name}}</p>
+                            <p><span class="fw-semibold text-dark">Issue:</span> {{a.issues}}</p>
+                            <p><span class="fw-semibold text-dark">Symptoms:</span> {{a.symptoms}}</p>
+                            <p><span class="fw-semibold text-dark">Status:</span> {{a.status}}</p>
+                            <p><span class="fw-semibold text-dark">Date:</span> {{a.appointment_date}}</p>
+                            <button class="btn btn-secondary btn-sm">View More <i class="fas fa-eye ms-2"></i></button>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

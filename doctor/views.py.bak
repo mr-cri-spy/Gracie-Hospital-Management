@@ -1,0 +1,167 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+from doctor import models as doctor_models
+from base import models as base_models
+
+
+@login_required
+def dashboard(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointments = base_models.Appointment.objects.filter(doctor=doctor)
+    notifications = doctor_models.Notification.objects.filter(doctor=doctor, seen=False)
+    paid_total = sum(
+        b.total for a in appointments
+        for b in base_models.Billing.objects.filter(appointment=a, status="Paid")
+    )
+    context = {
+        "appointments": appointments,
+        "notifications": notifications,
+        "paid_total": paid_total,
+        "doctor": doctor,
+    }
+    return render(request, "doctor/dashboard.html", context)
+
+
+@login_required
+def appointments(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointments = base_models.Appointment.objects.filter(doctor=doctor)
+    context = {"appointments": appointments}
+    return render(request, "doctor/appointments.html", context)
+
+
+@login_required
+def appointment_detail(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    medical_records = base_models.MedicalRecord.objects.filter(appointment=appointment)
+    lab_tests = base_models.LabTest.objects.filter(appointment=appointment)
+    prescriptions = base_models.Prescription.objects.filter(appointment=appointment)
+    context = {
+        "appointment": appointment,
+        "medical_records": medical_records,
+        "lab_tests": lab_tests,
+        "prescriptions": prescriptions,
+    }
+    return render(request, "doctor/appointment_detail.html", context)
+
+
+@login_required
+def cancel_appointment(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    appointment.status = "Cancelled"
+    appointment.save()
+    doctor_models.Notification.objects.create(
+        doctor=doctor, appointment=appointment, type="Appointment Cancelled"
+    )
+    messages.success(request, "Appointment Cancelled Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def activate_appointment(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    appointment.status = "Scheduled"
+    appointment.save()
+    messages.success(request, "Appointment Re-Scheduled Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def complete_appointment(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    appointment.status = "Completed"
+    appointment.save()
+    messages.success(request, "Appointment Marked as Completed")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def add_medical_record(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    if request.method == "POST":
+        diagnosis = request.POST.get("diagnosis")
+        treatment = request.POST.get("treatment")
+        base_models.MedicalRecord.objects.create(
+            appointment=appointment, diagnosis=diagnosis, treatment=treatment
+        )
+        messages.success(request, "Medical Record Added Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def add_lab_test(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    if request.method == "POST":
+        test_name = request.POST.get("test_name")
+        description = request.POST.get("description")
+        result = request.POST.get("result")
+        base_models.LabTest.objects.create(
+            appointment=appointment, test_name=test_name,
+            description=description, result=result
+        )
+        messages.success(request, "Lab Test Added Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def add_prescription(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    if request.method == "POST":
+        medications = request.POST.get("medications")
+        base_models.Prescription.objects.create(
+            appointment=appointment, medications=medications
+        )
+        messages.success(request, "Prescription Added Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def profile(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    if request.method == "POST":
+        doctor.full_name = request.POST.get("full_name", doctor.full_name)
+        doctor.mobile = request.POST.get("mobile", doctor.mobile)
+        doctor.specialization = request.POST.get("specialization", doctor.specialization)
+        doctor.qualifications = request.POST.get("qualifications", doctor.qualifications)
+        doctor.years_of_experience = request.POST.get("years_of_experience", doctor.years_of_experience)
+        doctor.registration_number = request.POST.get("registration_number", doctor.registration_number)
+        doctor.city = request.POST.get("city", doctor.city)
+        doctor.state = request.POST.get("state", doctor.state)
+        doctor.bio = request.POST.get("bio", doctor.bio)
+        doctor.next_available_appointment_date = request.POST.get(
+            "next_available_appointment_date", doctor.next_available_appointment_date
+        )
+        if request.FILES.get("image"):
+            doctor.image = request.FILES["image"]
+        doctor.save()
+        messages.success(request, "Profile Updated Successfully")
+        return redirect("doctor:profile")
+    context = {"doctor": doctor}
+    return render(request, "doctor/profile.html", context)
+
+
+@login_required
+def payments(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointments = base_models.Appointment.objects.filter(doctor=doctor)
+    payments = base_models.Billing.objects.filter(appointment__in=appointments)
+    context = {"payments": payments}
+    return render(request, "doctor/payments.html", context)
+
+
+@login_required
+def notifications(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    notifications = doctor_models.Notification.objects.filter(doctor=doctor)
+    notifications.update(seen=True)
+    context = {"notifications": notifications}
+    return render(request, "doctor/notifications.html", context)

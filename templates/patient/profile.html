@@ -1,0 +1,77 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'patient/sidebar.html' %}
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-4 fw-bold">My Profile</h4>
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white fw-bold">
+                        <i class="fas fa-user me-2"></i>Patient Details — Gracie Hospital, Mysore
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" name="full_name" value="{{patient.full_name}}" class="form-control" placeholder="e.g. Suresh Kumar" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" value="{{patient.email}}" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Mobile (India)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">🇮🇳 +91</span>
+                                        <input type="text" name="mobile" value="{{patient.mobile}}" class="form-control" placeholder="98765 43210" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Gender</label>
+                                    <select name="gender" class="form-select">
+                                        <option {% if patient.gender == "Male" %}selected{% endif %} value="Male">Male</option>
+                                        <option {% if patient.gender == "Female" %}selected{% endif %} value="Female">Female</option>
+                                        <option {% if patient.gender == "Other" %}selected{% endif %} value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" name="dob" value="{{patient.dob}}" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Blood Group</label>
+                                    <select name="blood_group" class="form-select">
+                                        <option {% if patient.blood_group == "A+" %}selected{% endif %} value="A+">A+</option>
+                                        <option {% if patient.blood_group == "A-" %}selected{% endif %} value="A-">A-</option>
+                                        <option {% if patient.blood_group == "B+" %}selected{% endif %} value="B+">B+</option>
+                                        <option {% if patient.blood_group == "B-" %}selected{% endif %} value="B-">B-</option>
+                                        <option {% if patient.blood_group == "AB+" %}selected{% endif %} value="AB+">AB+</option>
+                                        <option {% if patient.blood_group == "AB-" %}selected{% endif %} value="AB-">AB-</option>
+                                        <option {% if patient.blood_group == "O+" %}selected{% endif %} value="O+">O+</option>
+                                        <option {% if patient.blood_group == "O-" %}selected{% endif %} value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Profile Photo</label>
+                                    <input type="file" name="image" class="form-control" accept="image/*" />
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Address (Mysore / Karnataka)</label>
+                                    <input type="text" name="address" value="{{patient.address}}" class="form-control" placeholder="e.g. Kuvempunagar, Mysore - 570023" />
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success px-5">
+                                        <i class="fas fa-save me-2"></i>Save Profile
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <h1>Terms and Conditions</h1>
+        <p>Last updated: <span id="currentDate"></span></p>
+        <p>Welcome to Desphixs! These terms and conditions outline the rules and regulations for the use of Desphixs's Website, located at www.desphixs.com.</p>
+
+        <h2>1. Terms</h2>
+        <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use Desphixs if you do not agree to take all of the terms and conditions stated on this page.</p>
+
+        <h2>2. Cookies</h2>
+        <p>We employ the use of cookies. By accessing Desphixs, you agreed to use cookies in agreement with the Desphixs's Privacy Policy.</p>
+
+        <h2>3. License</h2>
+        <p>Unless otherwise stated, Desphixs and/or its licensors own the intellectual property rights for all material on Desphixs. All intellectual property rights are reserved. You may access this from Desphixs for your own personal use subjected to restrictions set in these terms and conditions.</p>
+
+        <h2>4. User Comments</h2>
+        <ul>
+            <li>This Agreement shall begin on the date hereof.</li>
+            <li>Certain parts of this website offer the opportunity for users to post and exchange opinions and information in certain areas of the website. Desphixs does not filter, edit, publish or review Comments prior to their presence on the website.</li>
+            <li>Comments do not reflect the views and opinions of Desphixs, its agents and/or affiliates. Comments reflect the views and opinions of the person who posts their views and opinions.</li>
+        </ul>
+
+        <h2>5. Hyperlinking to our Content</h2>
+        <ul>
+            <li>The following organizations may link to our Website without prior written approval:
+                <ul>
+                    <li>Government agencies;</li>
+                    <li>Search engines;</li>
+                    <li>News organizations;</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>6. iFrames</h2>
+        <p>Without prior approval and written permission, you may not create frames around our Webpages that alter in any way the visual presentation or appearance of our Website.</p>
+
+        <h2>7. Content Liability</h2>
+        <p>We shall not be hold responsible for any content that appears on your Website. You agree to protect and defend us against all claims that is rising on your Website.</p>
+
+        <h2>8. Your Privacy</h2>
+        <p>Please read Privacy Policy</p>
+
+        <h2>9. Reservation of Rights</h2>
+        <p>We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request.</p>
+
+        <h2>10. Removal of links from our website</h2>
+        <p>If you find any link on our Website that is offensive for any reason, you are free to contact and inform us any moment. We will consider requests to remove links but we are not obligated to or so or to respond to you directly.</p>
+
+        <h2>11. Disclaimer</h2>
+        <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website.</p>
+    </div>
+
+    <script>
+        // Set the current date
+        document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+    </script>
+
+{% endblock content %}

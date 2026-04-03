@@ -1,0 +1,1 @@
+New Appointment at Gracie Hospital, Hebbal, Mysore. Patient: {{billing.appointment.patient.full_name}} | Service: {{billing.appointment.service.name}} | Amount Paid: Rs.{{billing.total}} | UTR: {{billing.utr_number}}

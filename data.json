@@ -1,0 +1,62 @@
+[
+  {
+    "model": "base.service",
+    "pk": 1,
+    "fields": {
+      "name": "General Medicine",
+      "description": "Comprehensive general health consultation for fever, cold, infections, and common illnesses. Available at Gracie Hospital, Hebbal, Mysore.",
+      "cost": "299.00",
+      "image": ""
+    }
+  },
+  {
+    "model": "base.service",
+    "pk": 2,
+    "fields": {
+      "name": "Cardiology",
+      "description": "Expert heart care — ECG, echo, consultations for chest pain, BP management, and cardiac conditions.",
+      "cost": "499.00",
+      "image": ""
+    }
+  },
+  {
+    "model": "base.service",
+    "pk": 3,
+    "fields": {
+      "name": "Orthopaedics",
+      "description": "Treatment for bone, joint, and muscle problems including fractures, knee pain, back pain, and sports injuries.",
+      "cost": "399.00",
+      "image": ""
+    }
+  },
+  {
+    "model": "base.service",
+    "pk": 4,
+    "fields": {
+      "name": "Gynaecology & Obstetrics",
+      "description": "Women's health services including prenatal care, PCOS, menstrual issues, and delivery support.",
+      "cost": "449.00",
+      "image": ""
+    }
+  },
+  {
+    "model": "base.service",
+    "pk": 5,
+    "fields": {
+      "name": "Paediatrics",
+      "description": "Child healthcare for newborns to teenagers — vaccinations, growth monitoring, and illness treatment.",
+      "cost": "249.00",
+      "image": ""
+    }
+  },
+  {
+    "model": "base.service",
+    "pk": 6,
+    "fields": {
+      "name": "Dermatology",
+      "description": "Skin, hair and nail treatments — acne, eczema, psoriasis, hair fall, and cosmetic consultations.",
+      "cost": "349.00",
+      "image": ""
+    }
+  }
+]

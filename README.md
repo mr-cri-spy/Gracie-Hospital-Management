@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 #  Gracie Hospital Management System
+=======
+# Gracie Hospital Management System
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 **Location:** Hebbal, Mysore, Karnataka - 570017  
 **Payment:** Google Pay / UPI (`Your upi id`)  
 **Currency:** ₹ Rupees (INR)  
 **Framework:** Django 5.1 | Python 3.11+
 
----
 
+<<<<<<< HEAD
 
 
 ##  Setup Instructions
+=======
+## Setup Instructions
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 
 ### 1. Install Python & create virtual environment
 ```bash
@@ -25,7 +32,11 @@ pip install -r requirements.txt
 ### 3. Configure environment
 Edit `.env` file — your UPI ID is already set:
 ```
+<<<<<<< HEAD
 GPAY_UPI_ID= Your upi id
+=======
+GPAY_UPI_ID =   Your upi
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 GPAY_MERCHANT_NAME=Gracie Hospital Management
 ```
 
@@ -53,14 +64,22 @@ Visit: http://127.0.0.1:8000
 
 ---
 
+<<<<<<< HEAD
 ##  How Google Pay / UPI Payment Works
+=======
+## How Google Pay / UPI Payment Works
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 
 1. Patient books appointment → fills details → clicks Continue
 2. **Checkout page** shows:
    - Bill summary in ₹ INR (with 5% GST)
    - UPI QR code (scan with any UPI app)
    - "Open Google Pay" deep link button (on Android)
+<<<<<<< HEAD
    - UPI ID: `Your upi id`
+=======
+   - UPI ID: `Your upi`
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 3. Patient pays via Google Pay / PhonePe / Paytm / BHIM
 4. Patient enters the **UTR (Transaction Reference Number)** from their UPI app
 5. System confirms and marks appointment as **Scheduled**
@@ -68,7 +87,11 @@ Visit: http://127.0.0.1:8000
 
 ---
 
+<<<<<<< HEAD
 ##  Sample Services & Prices (₹ INR)
+=======
+## Sample Services & Prices (₹ INR)
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 
 | Service | Consultation Fee |
 |---------|-----------------|
@@ -81,7 +104,11 @@ Visit: http://127.0.0.1:8000
 
 ---
 
+<<<<<<< HEAD
 ##  Adding Doctors (via Admin Panel)
+=======
+## Adding Doctors (via Admin Panel)
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 
 1. Go to http://127.0.0.1:8000/admin/
 2. Create a User account with type "Doctor"
@@ -121,7 +148,11 @@ Gracie-Hospital-Management/
 
 ---
 
+<<<<<<< HEAD
 ##  Important Notes
+=======
+## Important Notes
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 
 - **UPI Payments are manual confirmation** — patient enters UTR after paying.
   For auto-verification, you can later integrate Razorpay (Indian gateway) which supports UPI.
@@ -131,7 +162,11 @@ Gracie-Hospital-Management/
 
 ---
 
+<<<<<<< HEAD
 ## Hospital Contact (Update in base.html)
+=======
+##  Hospital Contact (Update in base.html)
+>>>>>>> 6defd66 (Gracie Hospital Management System - Full Project)
 - **Address:** Hebbal, Mysore - 570017, Karnataka
 - **Phone:** +91 98765 43210
 - **Email:** info@graciehospital.in

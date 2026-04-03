@@ -1,0 +1,94 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'patient/sidebar.html' %}
+
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-0 mb-4 fw-bold">Appointment Detail #12345</h4>
+                <div class="card mb-4">
+                    <div class="shadow border p-3 mb-4 rounded-4">
+                        <p>
+                            <a>
+                                <p><span class="fw-semibold text-dark">Appointment ID:</span> #{{appointment.appointment_id}}</p>
+                                <p><span class="fw-semibold text-dark">Service:</span> {{appointment.service.name}}</p>
+                                <p><span class="fw-semibold text-dark">Doctor:</span> {{appointment.doctor.full_name}}</p>
+                                <p><span class="fw-semibold text-dark">Issue:</span> {{appointment.issues}}</p>
+                                <p><span class="fw-semibold text-dark">Symptoms:</span> {{appointment.symptoms}}</p>
+                                <p><span class="fw-semibold text-dark">Status:</span> {{appointment.status}}</p>
+                                <p><span class="fw-semibold text-dark">Date:</span> {{appointment.appointment_date}}</p>
+                                <p>
+                                    <span class="fw-semibold text-dark">Action:</span>
+
+                                    {% if appointment.status == "Scheduled" %}
+                                    <a href="{% url 'patient:cancel_appointment' appointment.appointment_id %}" class="btn btn-outline-danger btn-sm">Cancel Appointment <i class="fas fa-trash ms-2"></i></a>
+                                    <a href="{% url 'patient:complete_appointment' appointment.appointment_id %}" class="btn btn-outline-success btn-sm">Complete Appointment <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %} {% if appointment.status == "Cancelled" %}
+                                    <a href="{% url 'patient:activate_appointment' appointment.appointment_id %}" class="btn btn-success btn-sm">Activate Appointment <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %} {% if appointment.status == "Completed" %}
+                                    <a href="{% url 'patient:activate_appointment' appointment.appointment_id %}" class="btn btn-success btn-sm">Completed <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %}
+                                </p>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <div id="medical-report">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="mb-0 mb-4 fw-bold">Medical Reports</h4>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="border p-3 mb-4 rounded-4">
+                            {% for m in medical_records %}
+                            <div class="shadow p-3 rounded-4 mb-3">
+                                <p><span class="fw-semibold text-dark">Diagnosis:</span> {{m.diagnosis}}</p>
+                                <p><span class="fw-semibold text-dark">Treatment:</span> {{m.treatment}}</p>
+                            </div>
+                            {% empty %}
+                            <p>No medical records</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lab-test">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="mb-0 mb-4 fw-bold">Labs Tests Reports</h4>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="border p-3 mb-4 rounded-4">
+                            {% for l in lab_tests %}
+                            <div class="shadow p-3 rounded-4 mb-3">
+                                <p><span class="fw-semibold text-dark">Test Name:</span> {{l.test_name}}t</p>
+                                <p><span class="fw-semibold text-dark">Description:</span> {{l.description}}</p>
+                                <p><span class="fw-semibold text-dark">Result:</span> {{l.result|default:"Not added yet"}}</p>
+                            </div>
+                            {% empty %}
+                            <p>No lab tests</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <h4 class="mb-0 mb-4 fw-bold">Prescription</h4>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="border p-3 mb-4 rounded-4">
+                        {% for p in prescriptions %}
+                        <div class="shadow p-3 rounded-4 mb-3">
+                            <p><span class="fw-semibold text-dark">Medications:</span> {{p.medications}}</p>
+                        </div>
+                        {% empty %}
+                        <p>No prescriptions</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

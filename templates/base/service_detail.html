@@ -1,0 +1,59 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-4">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-lg-7 p-4 rounded-3 bg-white">
+            <span class="badge bg-success mb-2">Gracie Hospital — Hebbal, Mysore</span>
+            <h1 class="display-5 fw-bold">
+                <span class="text-success"><b>{{service.name}}</b></span>
+            </h1>
+            <p class="fs-5 mt-3 text-muted">{{service.description}}</p>
+            <p class="fs-4 fw-bold text-success mt-2">Consultation Fee: ₹{{service.cost}}</p>
+        </div>
+        <div class="col-12 col-lg-5">
+            <img class="img-fluid mt-4"
+                 style="width:100%;height:350px;object-fit:cover;border-radius:12px;"
+                 src="{{service.image.url}}" alt="{{service.name}}" />
+        </div>
+    </div>
+</section>
+
+<section class="container mt-4 mb-5">
+    <h2 class="fw-bold mb-1">Available Doctors</h2>
+    <p class="text-muted mb-4">Select a doctor and book your appointment at Gracie Hospital, Mysore</p>
+
+    {% for d in service.available_doctors.all %}
+    <div class="card shadow-sm mb-3 p-3">
+        <div class="d-flex align-items-center gap-3">
+            <img src="{{d.image.url}}" alt="Dr. {{d.full_name}}"
+                 style="width:80px;height:80px;object-fit:cover;border-radius:10px;" />
+            <div class="flex-grow-1">
+                <h5 class="fw-bold mb-1">Dr. {{d.full_name}}</h5>
+                <p class="text-muted small mb-1">
+                    <i class="fas fa-stethoscope me-1 text-success"></i>{{d.specialization}}
+                    &nbsp;|&nbsp;
+                    <i class="fas fa-graduation-cap me-1 text-success"></i>{{d.qualifications}}
+                </p>
+                <p class="text-muted small mb-1">
+                    <i class="fas fa-clock me-1 text-success"></i>
+                    Next Available: {{d.next_available_appointment_date|date:"D, d M Y h:i A"}}
+                </p>
+                <p class="text-muted small mb-0">
+                    <i class="fas fa-map-marker-alt me-1 text-success"></i>
+                    Gracie Hospital, Hebbal, Mysore
+                </p>
+            </div>
+            <div class="text-end">
+                <p class="fw-bold fs-5 text-success mb-1">₹{{service.cost}}</p>
+                <p class="text-muted small mb-2">Consultation Fee</p>
+                <a href="{% url 'base:book_appointment' service.id d.id %}"
+                   class="btn btn-success">
+                    Book Now <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-warning">No doctors available for this service right now. Please call us.</div>
+    {% endfor %}
+</section>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <h4 class="fw-bold mb-0"><i class="fas fa-hospital-symbol me-2"></i>Gracie Hospital</h4>
+                    <p class="small mb-0 mt-1">Verify OTP — Step 2 of 3</p>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted small text-center mb-4">
+                        <i class="fas fa-envelope-open-text text-success me-1"></i>
+                        We sent a 6-digit OTP to your email. Enter it below.
+                    </p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Enter OTP</label>
+                            <input type="text" name="otp" class="form-control text-center fw-bold fs-4 letter-spacing-3"
+                                placeholder="_ _ _ _ _ _" maxlength="6" required autofocus />
+                            <div class="form-text">Check your inbox (and spam folder) for the OTP.</div>
+                        </div>
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} small">{{message}}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success w-100 fw-bold">
+                            <i class="fas fa-check-circle me-2"></i>Verify OTP
+                        </button>
+                    </form>
+                    <hr />
+                    <p class="text-center text-muted small mb-0">
+                        Didn't receive OTP?
+                        <a href="{% url 'userauths:forgot-password' %}" class="text-success fw-bold">Try again</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

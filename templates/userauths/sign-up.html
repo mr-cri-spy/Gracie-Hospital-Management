@@ -1,0 +1,53 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <h4 class="fw-bold mb-0"><i class="fas fa-hospital-symbol me-2"></i>Gracie Hospital</h4>
+                    <p class="small mb-0 mt-1">Hebbal, Mysore — Create Account</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="full_name" class="form-control" placeholder="e.g. Suresh Kumar" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="yourname@gmail.com" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password1" class="form-control" placeholder="Create a strong password" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Re-enter password" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">I am registering as</label>
+                            <select name="user_type" class="form-select" required>
+                                <option value="Patient">Patient</option>
+                                <option value="Doctor">Doctor (Staff Only)</option>
+                            </select>
+                        </div>
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} small">{{message}}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success w-100 fw-bold">
+                            <i class="fas fa-user-plus me-2"></i>Create Account
+                        </button>
+                    </form>
+                    <hr />
+                    <p class="text-center text-muted small mb-0">
+                        Already have an account?
+                        <a href="{% url 'userauths:sign-in' %}" class="text-success fw-bold">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

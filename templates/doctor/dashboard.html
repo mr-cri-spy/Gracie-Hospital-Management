@@ -1,0 +1,83 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'doctor/sidebar.html' %}
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0 fw-bold">Welcome, Dr. {{doctor.full_name}}</h4>
+                        <p class="text-muted small mb-0">Gracie Hospital — Hebbal, Mysore, Karnataka</p>
+                    </div>
+                    <span class="badge bg-success px-3 py-2">{{doctor.specialization}}</span>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center py-4">
+                            <h3 class="fw-bold text-success">{{appointments.count}}</h3>
+                            <p class="text-muted mb-0">Total Appointments</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center py-4">
+                            <h3 class="fw-bold text-warning">{{notifications.count}}</h3>
+                            <p class="text-muted mb-0">New Notifications</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center py-4">
+                            <h3 class="fw-bold text-primary">₹{{paid_total}}</h3>
+                            <p class="text-muted mb-0">Total Earned (INR)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Appointments -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white fw-bold">
+                        <i class="fas fa-calendar-check me-2"></i>Recent Appointments
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table mb-0 table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient</th>
+                                    <th>Service</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for a in appointments|slice:":10" %}
+                                <tr>
+                                    <td class="small text-muted">{{a.appointment_id}}</td>
+                                    <td>{{a.patient.full_name}}</td>
+                                    <td>{{a.service.name}}</td>
+                                    <td class="small">{{a.appointment_date|date:"d M Y"}}</td>
+                                    <td>
+                                        {% if a.status == "Scheduled" %}<span class="badge bg-primary">Scheduled</span>
+                                        {% elif a.status == "Completed" %}<span class="badge bg-success">Completed</span>
+                                        {% elif a.status == "Cancelled" %}<span class="badge bg-danger">Cancelled</span>
+                                        {% else %}<span class="badge bg-warning text-dark">Pending</span>{% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'doctor:appointment_detail' a.appointment_id %}"
+                                           class="btn btn-sm btn-outline-success">View</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="6" class="text-center text-muted py-4">No appointments yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

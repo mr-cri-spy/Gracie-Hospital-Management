@@ -1,0 +1,90 @@
+{% extends 'partials/base.html' %} {% load static %} {% block content %}
+
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'partials/sidebar.html' %}
+
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="card card-body p-4 shadow rounded-4">
+                    <h4 class="mb-0 fw-bold">KYC Details</h4>
+                    <p class="mb-4 text-muted">Please use the form below to let us know more informations about you</p>
+                    
+                    
+                    {% if customer.status == 'KYC In-Review' %}
+                        <div class="alert alert-warning">
+                            {{customer.status}}
+                        </div>
+                    {% endif %}
+
+                    {% if customer.status == 'KYC In-Complete' %}
+                        <div class="alert alert-danger">
+                            {{customer.status}}
+                        </div>
+                    {% endif %}
+
+                    {% if customer.status == 'KYC Verified' %}
+                        <div class="alert alert-success">
+                            {{customer.status}}
+                        </div>
+                    {% endif %}
+                    
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="avatar" class="form-label">Avatar</label>
+                            <input type="file" name="image" id="avatar" class="form-control" />
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <label for="full_name" class="form-label">Full Name</label>
+                                <input type="text" value="{{customer.full_name}}" {% if customer.status != 'KYC In-Complete' %} readonly {% endif %} name="full_name" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="text" value="{{customer.user.email}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="email" class="form-control  {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" value="{{customer.phone}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="phone" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" value="{{customer.address}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="address" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" value="{{customer.city}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="city" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="state" class="form-label">State</label>
+                                <input type="text" value="{{customer.state}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="state" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <input type="text" value="{{customer.country}}"  {% if customer.status != 'KYC In-Complete' %} readonly {% endif %}  name="country" class="form-control {% if customer.status != 'KYC In-Complete' %} bg-light {% endif %}" />
+                            </div>
+                        </div>
+                        
+                        
+                        {% if customer.status == "KYC In-Complete" %}
+                            <button class="btn btn-success"  type="submit">Submit KYC <i class="fas fa-paper-plane ms-2"></i></button>
+                        {% endif %}
+
+                        {% if customer.status == "KYC In-Review" %}
+                            <button class="btn btn-secondary" disabled type="submit">Reviewing In Progress <i class="fas fa-spinner fa-spin ms-2"></i></button>
+                        {% endif %}
+
+                        {% if customer.status == "KYC Verified" %}
+                                <button class="btn btn-success" disabled type="submit">Verified <i class="fas fa-check-circle ms-2"></i></button>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

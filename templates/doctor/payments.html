@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'doctor/sidebar.html' %}
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-0 mb-4 fw-bold">Payments (₹ INR)</h4>
+                <div class="card mb-4 mt-3 shadow-sm">
+                    <div class="table-responsive">
+                        <table class="table mb-0 text-nowrap table-hover table-centered">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>Payment ID</th>
+                                    <th>Appointment ID</th>
+                                    <th>Patient</th>
+                                    <th>Service</th>
+                                    <th>Amount (₹)</th>
+                                    <th>GST (₹)</th>
+                                    <th>UTR No.</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in payments %}
+                                <tr>
+                                    <td>{{p.billing_id}}</td>
+                                    <td>{{p.appointment.appointment_id}}</td>
+                                    <td>{{p.appointment.patient.full_name}}</td>
+                                    <td>{{p.appointment.service.name}}</td>
+                                    <td class="fw-bold text-success">₹{{p.total}}</td>
+                                    <td>₹{{p.tax}}</td>
+                                    <td class="text-muted small">{{p.utr_number|default:"—"}}</td>
+                                    <td>
+                                        {% if p.status == "Paid" %}
+                                        <span class="badge bg-success">Paid via UPI</span>
+                                        {% else %}
+                                        <span class="badge bg-warning text-dark">Unpaid</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="8" class="text-center text-muted py-4">No payments yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family:Arial,sans-serif;background:#f5f5f5;margin:0;padding:20px;">
+<div style="max-width:600px;margin:auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <div style="background:#145a32;padding:24px;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:22px;">🏥 Gracie Hospital Management</h1>
+        <p style="color:#a8d5b5;margin:4px 0 0;">Hebbal, Mysore, Karnataka — 570017</p>
+    </div>
+    <div style="padding:30px;">
+        <h2 style="color:#145a32;">✅ Appointment Booked Successfully!</h2>
+        <p>Dear <strong>{{billing.appointment.patient.full_name}}</strong>,</p>
+        <p>Your appointment at <strong>Gracie Hospital, Hebbal, Mysore</strong> has been confirmed. Your UPI payment was received successfully.</p>
+        <table style="width:100%;border-collapse:collapse;margin:20px 0;">
+            <tr style="background:#f0f8f0;">
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Appointment ID</td>
+                <td style="padding:10px;border:1px solid #ddd;">{{billing.appointment.appointment_id}}</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Doctor</td>
+                <td style="padding:10px;border:1px solid #ddd;">Dr. {{billing.appointment.doctor.full_name}}</td>
+            </tr>
+            <tr style="background:#f0f8f0;">
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Specialization</td>
+                <td style="padding:10px;border:1px solid #ddd;">{{billing.appointment.doctor.specialization}}</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Service</td>
+                <td style="padding:10px;border:1px solid #ddd;">{{billing.appointment.service.name}}</td>
+            </tr>
+            <tr style="background:#f0f8f0;">
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Amount Paid</td>
+                <td style="padding:10px;border:1px solid #ddd;color:#145a32;font-weight:bold;">₹{{billing.total}} (via Google Pay/UPI)</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">UTR Number</td>
+                <td style="padding:10px;border:1px solid #ddd;">{{billing.utr_number}}</td>
+            </tr>
+        </table>
+        <div style="background:#e8f5e9;border-left:4px solid #145a32;padding:16px;border-radius:4px;">
+            <p style="margin:0;"><strong>📍 Location:</strong> Gracie Hospital Management, Hebbal, Mysore - 570017, Karnataka</p>
+            <p style="margin:8px 0 0;"><strong>📞 Contact:</strong> +91 98765 43210</p>
+            <p style="margin:8px 0 0;"><strong>🕐 Timing:</strong> Monday–Saturday: 8:00 AM – 8:00 PM</p>
+        </div>
+        <p style="margin-top:20px;">Please carry this email and a valid Photo ID (Aadhaar / PAN) when you visit.</p>
+    </div>
+    <div style="background:#f5f5f5;padding:16px;text-align:center;font-size:12px;color:#888;">
+        Gracie Hospital Management | Hebbal, Mysore - 570017 | info@graciehospital.in
+    </div>
+</div>
+</body>
+</html>

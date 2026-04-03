@@ -1,0 +1,41 @@
+{% extends 'partials/base.html' %} {% block content %}
+<section class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <h4 class="fw-bold mb-0"><i class="fas fa-hospital-symbol me-2"></i>Gracie Hospital</h4>
+                    <p class="small mb-0 mt-1">Hebbal, Mysore — Sign In</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="yourname@gmail.com" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Enter password" required />
+                        </div>
+                        <div class="text-end mb-3">
+                             <a href="{% url 'userauths:forgot-password' %}" class="text-success small">Forgot Password?</a>
+                        </div>
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} small">{{message}}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success w-100 fw-bold">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </button>
+                    </form>
+                    <hr />
+                    <p class="text-center text-muted small mb-0">
+                        Don't have an account?
+                        <a href="{% url 'userauths:sign-up' %}" class="text-success fw-bold">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

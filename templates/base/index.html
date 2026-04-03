@@ -1,0 +1,152 @@
+{% extends 'partials/base.html' %} {% block content %}
+
+<section class="container mt-4">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-lg-7 p-4 rounded-3 bg-white">
+            <span class="badge bg-success mb-3">Hebbal, Mysore | Karnataka</span>
+            <h1 class="display-4 fw-bold">
+                <span class="text-success"><b>Gracie Hospital</b></span> —
+                Quality Healthcare Right Here For You.
+            </h1>
+            <p class="fs-5 mt-3 text-muted">
+                Trusted by thousands of families in Mysore since 2010. Expert doctors, modern
+                facilities, and affordable care — all at your fingertips.
+                Book appointments online and pay easily via <strong>Google Pay</strong>.
+            </p>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-4">
+                <a href="{% url 'userauths:sign-up' %}" class="btn btn-success btn-lg">
+                    Create Account <i class="fas fa-user-plus ms-1"></i>
+                </a>
+                <a href="#services" class="btn btn-outline-success btn-lg">
+                    Book Appointment <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+            <div class="mt-4 d-flex flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-check-circle text-success fs-5"></i>
+                    <span class="text-muted">NABH Accredited</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-check-circle text-success fs-5"></i>
+                    <span class="text-muted">24×7 Emergency</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-check-circle text-success fs-5"></i>
+                    <span class="text-muted">Google Pay / UPI</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-check-circle text-success fs-5"></i>
+                    <span class="text-muted">Affordable ₹ INR Prices</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5">
+            <img class="img-fluid mt-4"
+                 style="width:100%;height:380px;object-fit:cover;border-radius:12px;"
+                 src="https://indiaeducationdiary.in/wp-content/uploads/2024/03/GettyImages-1217096099-3.jpg"
+                 alt="Gracie Hospital Mysore" />
+        </div>
+    </div>
+</section>
+
+<!-- Stats Row -->
+<section class="container mt-5">
+    <div class="row text-center g-3">
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm py-4">
+                <h3 class="fw-bold text-success">5,000+</h3>
+                <p class="text-muted mb-0">Patients Treated</p>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm py-4">
+                <h3 class="fw-bold text-success">20+</h3>
+                <p class="text-muted mb-0">Expert Doctors</p>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm py-4">
+                <h3 class="fw-bold text-success">15+</h3>
+                <p class="text-muted mb-0">Specialities</p>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm py-4">
+                <h3 class="fw-bold text-success">24×7</h3>
+                <p class="text-muted mb-0">Emergency Care</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section class="container mt-5" id="services">
+    <div class="py-3">
+        <h2 class="fw-bold">Our Medical Services</h2>
+        <p class="text-muted">Affordable, expert healthcare services at Gracie Hospital, Hebbal, Mysore</p>
+    </div>
+    <div class="row">
+        {% for s in services %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <a href="{% url 'base:service_detail' s.id %}">
+                    <img src="{{s.image.url}}" alt="{{s.name}}"
+                         style="height:200px;object-fit:cover;" class="card-img-top" />
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="mb-2">
+                        <a href="{% url 'base:service_detail' s.id %}"
+                           class="text-dark text-decoration-none">{{s.name}}</a>
+                    </h5>
+                    <p class="text-muted small">{{s.description|truncatechars:60}}</p>
+                    <div class="mt-auto">
+                        <p class="text-muted small mb-1">
+                            <i class="fas fa-user-md text-success me-1"></i>
+                            {{s.available_doctors.all.count}} Doctor(s) Available
+                        </p>
+                        <span class="fw-bold fs-5 text-success">₹{{s.cost}}</span>
+                        <a href="{% url 'base:service_detail' s.id %}"
+                           class="btn btn-sm btn-success w-100 mt-2">
+                            Book Appointment <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No services listed yet. Please check back soon.</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="container mt-5 mb-5">
+    <h2 class="fw-bold mb-4">Why Choose Gracie Hospital?</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <i class="fas fa-rupee-sign fs-2 text-success mb-3"></i>
+                <h5 class="fw-bold">Affordable Prices</h5>
+                <p class="text-muted">Transparent, low-cost healthcare with no hidden charges. All prices in ₹ INR.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <i class="fab fa-google-pay fs-2 text-success mb-3"></i>
+                <h5 class="fw-bold">Pay via Google Pay</h5>
+                <p class="text-muted">Hassle-free UPI payments via Google Pay, PhonePe, Paytm, or any UPI app.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <i class="fas fa-map-marker-alt fs-2 text-success mb-3"></i>
+                <h5 class="fw-bold">Located in Mysore</h5>
+                <p class="text-muted">Conveniently located at Hebbal, Mysore — easily accessible from all areas of the city.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

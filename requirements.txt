@@ -1,0 +1,23 @@
+# Gracie Hospital Management System
+# Updated: 2024 | Python 3.11+ | Django 5.x
+
+Django==5.1.4
+asgiref==3.8.1
+dj-database-url==2.3.0
+django-crispy-forms==2.3
+crispy-bootstrap5==2024.10
+django-jazzmin==3.0.1
+django-storages==1.14.4
+django-import-export==4.3.3
+python-decouple==3.8
+whitenoise==6.8.2
+shortuuid==1.0.13
+django-mathfilters==1.0.0
+django-anymail==12.0
+requests==2.32.3
+gunicorn==23.0.0
+environs==11.2.1
+qrcode==8.0
+Pillow==11.1.0
+boto3==1.35.99
+botocore==1.35.99

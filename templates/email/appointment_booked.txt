@@ -1,0 +1,1 @@
+Appointment Confirmed at Gracie Hospital, Hebbal Mysore. Doctor: Dr.{{billing.appointment.doctor.full_name}} | Amount Paid: Rs.{{billing.total}} via Google Pay/UPI | UTR: {{billing.utr_number}} | Contact: +91 98765 43210
