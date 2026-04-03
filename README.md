@@ -1,7 +1,7 @@
 #  Gracie Hospital Management System
 **Location:** Hebbal, Mysore, Karnataka - 570017  
 **Payment:** Google Pay / UPI (`Your upi id`)  
-**Currency:** ₹ Indian Rupees (INR)  
+**Currency:** ₹ Rupees (INR)  
 **Framework:** Django 5.1 | Python 3.11+
 
 ---
