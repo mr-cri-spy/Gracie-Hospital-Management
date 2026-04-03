@@ -1,29 +1,12 @@
 #  Gracie Hospital Management System
 **Location:** Hebbal, Mysore, Karnataka - 570017  
-**Payment:** Google Pay / UPI (`kanspy@okicici`)  
+**Payment:** Google Pay / UPI (`Your upi id`)  
 **Currency:** ₹ Indian Rupees (INR)  
 **Framework:** Django 5.1 | Python 3.11+
 
 ---
 
-##  What Was Changed (India Localization)
 
-| Area | Before | After |
-|------|--------|-------|
-| Currency | USD ($) | INR (₹) |
-| Payment | Stripe + PayPal | Google Pay / UPI |
-| Timezone | Africa/Lagos | Asia/Kolkata (IST) |
-| Language | en-us | en-in |
-| Branding | DCare Inc. | Gracie Hospital |
-| Location | Generic | Hebbal, Mysore, Karnataka |
-| Service prices | Generic USD | ₹249–₹499 INR |
-| Doctor fields | country | city, state, KMC reg. no. |
-| Billing | No UTR field | UTR/transaction ID field |
-| Django version | 4.2.2 | 5.1.4 |
-| Bootstrap | 5.3.3 | 5.3.3 (updated CDN) |
-| Font Awesome | 6.0.0 | 6.5.0 |
-
----
 
 ##  Setup Instructions
 
@@ -42,7 +25,7 @@ pip install -r requirements.txt
 ### 3. Configure environment
 Edit `.env` file — your UPI ID is already set:
 ```
-GPAY_UPI_ID=kirancrispy@okicici
+GPAY_UPI_ID= Your upi id
 GPAY_MERCHANT_NAME=Gracie Hospital Management
 ```
 
@@ -77,7 +60,7 @@ Visit: http://127.0.0.1:8000
    - Bill summary in ₹ INR (with 5% GST)
    - UPI QR code (scan with any UPI app)
    - "Open Google Pay" deep link button (on Android)
-   - UPI ID: `krancripy@okicici`
+   - UPI ID: `Your upi id`
 3. Patient pays via Google Pay / PhonePe / Paytm / BHIM
 4. Patient enters the **UTR (Transaction Reference Number)** from their UPI app
 5. System confirms and marks appointment as **Scheduled**
@@ -148,7 +131,7 @@ Gracie-Hospital-Management/
 
 ---
 
-## 📞 Hospital Contact (Update in base.html)
+## Hospital Contact (Update in base.html)
 - **Address:** Hebbal, Mysore - 570017, Karnataka
 - **Phone:** +91 98765 43210
 - **Email:** info@graciehospital.in
